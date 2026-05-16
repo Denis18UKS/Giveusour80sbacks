@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DoorTrigger : MonoBehaviour
 {
@@ -6,8 +7,7 @@ public class DoorTrigger : MonoBehaviour
 
     void Update()
     {
-        // Если игрок рядом и нажал E
-        if (playerInRange && Input.GetKeyDown(KeyCode.E))
+        if (playerInRange && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             Debug.Log("Игрок вошёл в дверь!");
         }
