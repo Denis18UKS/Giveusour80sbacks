@@ -6,25 +6,25 @@ public class CameraFollow : MonoBehaviour
     public Transform target;
 
     [Header("Follow Settings")]
-    public float smoothSpeed = 5f;
+    public float smoothTime = 0.15f;
 
-    // Смещение камеры относительно игрока
+    [Header("Offset")]
     public Vector3 offset = new Vector3(0f, 0f, -10f);
+
+    private Vector3 velocity = Vector3.zero;
 
     void LateUpdate()
     {
-        // Если target не назначен — ничего не делаем
         if (target == null)
             return;
 
-        // Желаемая позиция камеры
         Vector3 targetPosition = target.position + offset;
 
-        // Плавное движение камеры
-        transform.position = Vector3.Lerp(
+        transform.position = Vector3.SmoothDamp(
             transform.position,
             targetPosition,
-            smoothSpeed * Time.deltaTime
+            ref velocity,
+            smoothTime
         );
     }
 }
