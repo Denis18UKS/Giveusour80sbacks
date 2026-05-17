@@ -7,6 +7,9 @@ public class Dot : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManager.AddScore(1);
+
+            LevelManager.instance.DotCollected();
+
             Destroy(gameObject);
         }
     }
