@@ -139,9 +139,17 @@ PrefabInstance:
       propertyPath: m_TagString
       value: C-Pacman
       objectReference: {fileID: 0}
+    - target: {fileID: 5269255766093871287, guid: 548a07795f5934d4d9be1c9add4e0a7e, type: 3}
+      propertyPath: fadeImage
+      value: 
+      objectReference: {fileID: 1715270076}
+    - target: {fileID: 5269255766093871287, guid: 548a07795f5934d4d9be1c9add4e0a7e, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1891010074}
     - target: {fileID: 6027110485159965255, guid: 548a07795f5934d4d9be1c9add4e0a7e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.72
+      value: 1.86
       objectReference: {fileID: 0}
     - target: {fileID: 6027110485159965255, guid: 548a07795f5934d4d9be1c9add4e0a7e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -188,15 +196,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1891010074}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2475188198203933517, guid: 548a07795f5934d4d9be1c9add4e0a7e, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 548a07795f5934d4d9be1c9add4e0a7e, type: 3}
---- !u!1 &78573381 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7112668445608713593, guid: 64aec9dd7582bfa4db8d8bf1c17a9db1, type: 3}
-  m_PrefabInstance: {fileID: 1988908033}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &213699955
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,11 +825,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 178555356865949035, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.67
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 178555356865949035, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.79
+      value: -1.02
       objectReference: {fileID: 0}
     - target: {fileID: 178555356865949035, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
       propertyPath: m_LocalPosition.z
@@ -859,6 +863,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2993440373341213763, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
+      propertyPath: fadeImage
+      value: 
+      objectReference: {fileID: 1715270076}
+    - target: {fileID: 2993440373341213763, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1891010074}
     - target: {fileID: 4943507128517205208, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
       propertyPath: m_Name
       value: mario
@@ -881,33 +893,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6287497564332323473, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8549086131983784085, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8549086131983784085, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1650797782}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
---- !u!1 &869029953 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4280757591562750584, guid: 64aec9dd7582bfa4db8d8bf1c17a9db1, type: 3}
-  m_PrefabInstance: {fileID: 1988908033}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &869029957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 869029953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99f62bab31cb41f45b1e5421c34f0c97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractionTetrisCartridge
-  fadeImage: {fileID: 1715270076}
-  audioSource: {fileID: 1891010074}
-  cartridgeSound: {fileID: 8300000, guid: 5737bafa592d0d74ea0fd210b244f5a9, type: 3}
 --- !u!1 &1000400181
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,11 +989,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc4739da48a7914e9a9aafd9fbeefa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorTrigger
---- !u!1 &1037011271 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3460417722762880910, guid: 548a07795f5934d4d9be1c9add4e0a7e, type: 3}
-  m_PrefabInstance: {fileID: 57270195}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1095253767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1372,26 +1357,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.9157486, y: 2.2468166}
   m_EdgeRadius: 0
---- !u!1 &1650797778 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8549086131983784085, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
-  m_PrefabInstance: {fileID: 761894359}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1650797782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1650797778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c978f52964c3ad46ade7eb173465aa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractionMarioCartridge
-  fadeImage: {fileID: 1715270076}
-  audioSource: {fileID: 1891010074}
-  cartridgeSound: {fileID: 8300000, guid: 5737bafa592d0d74ea0fd210b244f5a9, type: 3}
 --- !u!1 &1715270074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1656,9 +1621,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f53d2e37bd415408d848c6e3141774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CartridgeManager
-  pacmanObject: {fileID: 1037011271}
-  tetrisObject: {fileID: 78573381}
-  marioObject: {fileID: 2056862813}
+  pacmanObject: {fileID: 0}
+  tetrisObject: {fileID: 0}
+  marioObject: {fileID: 0}
   spawnPoints:
   - {fileID: 297226363}
   - {fileID: 1095253768}
@@ -1777,6 +1742,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: C-Tetris
       objectReference: {fileID: 0}
+    - target: {fileID: 5674548540618756755, guid: 64aec9dd7582bfa4db8d8bf1c17a9db1, type: 3}
+      propertyPath: fadeImage
+      value: 
+      objectReference: {fileID: 1715270076}
+    - target: {fileID: 5674548540618756755, guid: 64aec9dd7582bfa4db8d8bf1c17a9db1, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1891010074}
     - target: {fileID: 7112668445608713593, guid: 64aec9dd7582bfa4db8d8bf1c17a9db1, type: 3}
       propertyPath: m_Name
       value: tetris
@@ -1787,11 +1760,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7356269015522681890, guid: 64aec9dd7582bfa4db8d8bf1c17a9db1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.09354
+      value: 2.69
       objectReference: {fileID: 0}
     - target: {fileID: 7356269015522681890, guid: 64aec9dd7582bfa4db8d8bf1c17a9db1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.50242
+      value: -1.33
       objectReference: {fileID: 0}
     - target: {fileID: 7356269015522681890, guid: 64aec9dd7582bfa4db8d8bf1c17a9db1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1827,18 +1800,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4113815794625372440, guid: 64aec9dd7582bfa4db8d8bf1c17a9db1, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4280757591562750584, guid: 64aec9dd7582bfa4db8d8bf1c17a9db1, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4280757591562750584, guid: 64aec9dd7582bfa4db8d8bf1c17a9db1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 869029957}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64aec9dd7582bfa4db8d8bf1c17a9db1, type: 3}
---- !u!1 &2056862813 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4943507128517205208, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
-  m_PrefabInstance: {fileID: 761894359}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2091636181
 GameObject:
   m_ObjectHideFlags: 0
