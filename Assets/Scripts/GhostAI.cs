@@ -10,56 +10,70 @@ public class GhostAI : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
-    private Vector2 currentDirection;
-    private Vector2 nextDirection;
-
-    private float checkDistance = 0.55f;
+    private Vector2 direction;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
-        currentDirection = Vector2.right;
-        nextDirection = currentDirection;
+        direction = Vector2.left;
     }
 
     void FixedUpdate()
     {
         if (player == null)
+        {
+            FindPlayer();
             return;
+        }
 
-        ChooseBestDirection();
+        MoveAI();
 
-        TryChangeDirection();
+        rb.linearVelocity = direction * speed;
 
-        rb.linearVelocity = currentDirection * speed;
-
-        PlayAnimation(currentDirection);
+        PlayAnim();
     }
 
-    void ChooseBestDirection()
+    void FindPlayer()
     {
-        Vector2[] directions =
+        GameObject p = GameObject.FindGameObjectWithTag("Player");
+        if (p != null)
+            player = p.transform;
+    }
+
+    void MoveAI()
+    {
+        // если упёрся в стену → меняем направление
+        if (IsWall(direction))
         {
+            ChooseNewDirection();
+        }
+
+        // на “перекрёстках” тоже меняем
+        if (AtIntersection())
+        {
+            ChooseNewDirection();
+        }
+    }
+
+    void ChooseNewDirection()
+    {
+        Vector2[] dirs = {
             Vector2.up,
             Vector2.down,
             Vector2.left,
             Vector2.right
         };
 
-        float bestDistance = Mathf.Infinity;
-        Vector2 bestDir = currentDirection;
+        Vector2 bestDir = direction;
+        float bestDist = Mathf.Infinity;
 
-        foreach (Vector2 dir in directions)
+        foreach (var dir in dirs)
         {
-            // нельзя идти назад
-            if (dir == -currentDirection)
-                continue;
+            if (dir == -direction) continue;
 
-            // проверяем стену
-            if (IsWall(dir))
-                continue;
+            if (IsWall(dir)) continue;
 
             Vector2 nextPos =
                 (Vector2)transform.position + dir;
@@ -67,74 +81,61 @@ public class GhostAI : MonoBehaviour
             float dist =
                 Vector2.Distance(nextPos, player.position);
 
-            if (dist < bestDistance)
+            if (dist < bestDist)
             {
-                bestDistance = dist;
+                bestDist = dist;
                 bestDir = dir;
             }
         }
 
-        nextDirection = bestDir;
+        direction = bestDir;
     }
 
-    void TryChangeDirection()
+    bool AtIntersection()
     {
-        // если впереди стена → поворачиваем
-        if (IsWall(currentDirection))
+        int openPaths = 0;
+
+        Vector2[] dirs = {
+            Vector2.up,
+            Vector2.down,
+            Vector2.left,
+            Vector2.right
+        };
+
+        foreach (var dir in dirs)
         {
-            currentDirection = nextDirection;
-            return;
+            if (!IsWall(dir))
+                openPaths++;
         }
 
-        // проверяем центр клетки
-        Vector2 center =
-            new Vector2(
-                Mathf.Round(transform.position.x),
-                Mathf.Round(transform.position.y)
-            );
-
-        float dist =
-            Vector2.Distance(transform.position, center);
-
-        // поворот только в центре клетки
-        if (dist < 0.1f)
-        {
-            if (!IsWall(nextDirection))
-            {
-                currentDirection = nextDirection;
-            }
-
-            transform.position = center;
-        }
+        return openPaths >= 3;
     }
 
     bool IsWall(Vector2 dir)
     {
-        Vector2 checkPos =
-            (Vector2)transform.position +
-            dir * checkDistance;
+        RaycastHit2D hit =
+            Physics2D.Raycast(
+                transform.position,
+                dir,
+                0.6f
+            );
 
-        Collider2D hit =
-            Physics2D.OverlapCircle(checkPos, 0.2f);
-
-        if (hit == null)
-            return false;
-
-        return hit.CompareTag("Wall");
+        return hit.collider != null &&
+               hit.collider.CompareTag("Wall");
     }
 
-    void PlayAnimation(Vector2 dir)
+    void PlayAnim()
     {
-        if (dir == Vector2.right)
+        if (direction == Vector2.right)
             anim.Play(prefix + "_right");
 
-        else if (dir == Vector2.left)
+        else if (direction == Vector2.left)
             anim.Play(prefix + "_left");
 
-        else if (dir == Vector2.up)
+        else if (direction == Vector2.up)
             anim.Play(prefix + "_top");
 
-        else if (dir == Vector2.down)
+        else if (direction == Vector2.down)
             anim.Play(prefix + "_bottom");
     }
 }

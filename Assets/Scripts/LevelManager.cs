@@ -34,7 +34,10 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator FadeAndLoad()
     {
-        audioSource.Play();
+        GameState.isPacmanMode = true;
+
+        if (audioSource != null)
+            audioSource.Play();
 
         Color color = fadeImage.color;
 
@@ -42,7 +45,6 @@ public class LevelManager : MonoBehaviour
         {
             color.a += Time.deltaTime;
             fadeImage.color = color;
-
             yield return null;
         }
 

@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ghost
   - Wall
+  - C-Pacman
+  - C-Tetris
+  - C-Mario
   layers:
   - Default
   - TransparentFX

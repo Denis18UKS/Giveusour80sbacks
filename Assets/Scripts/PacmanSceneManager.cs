@@ -1,29 +1,46 @@
+using System.Collections;
 using UnityEngine;
 
 public class PacmanSceneManager : MonoBehaviour
 {
     public Transform spawnPoint;
 
-    void Start()
+    IEnumerator Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        // ждём загрузку сцены
+        yield return null;
+
+        GameObject player =
+            GameObject.FindGameObjectWithTag("Player");
 
         if (player != null)
         {
-            // Увеличение размера
-            player.transform.localScale = new Vector3(2f, 2f, 2f);
+            // размер
+            player.transform.localScale =
+                new Vector3(3f, 3f, 3f);
 
-            // Перемещение на spawn
-            player.transform.position = spawnPoint.position;
+            // позиция
+            player.transform.position =
+                spawnPoint.position;
 
-            // Увеличение скорости
+            // скорость
             PlayerController controller =
                 player.GetComponent<PlayerController>();
 
             if (controller != null)
             {
                 controller.speed = 3f;
+
+                Debug.Log("PACMAN SPEED = " + controller.speed);
             }
+            else
+            {
+                Debug.LogError("PlayerController NOT FOUND");
+            }
+        }
+        else
+        {
+            Debug.LogError("PLAYER NOT FOUND");
         }
     }
 }

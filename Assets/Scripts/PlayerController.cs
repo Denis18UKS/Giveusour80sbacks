@@ -10,15 +10,31 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
     private Vector2 movement;
-
-    // Последнее направление, чтобы idle оставался повернут
-    // в нужную сторону после остановки
     private string lastDirection = "down";
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+    }
+
+    void Start()
+    {
+        ApplyModeSettings();
+    }
+
+    void ApplyModeSettings()
+    {
+        if (GameState.isPacmanMode)
+        {
+            speed = 3f;
+            transform.localScale = new Vector3(2f, 2f, 2f);
+        }
+        else
+        {
+            speed = 1f;
+            transform.localScale = Vector3.one;
+        }
     }
 
     void Update()
@@ -53,58 +69,37 @@ public class PlayerController : MonoBehaviour
 
     void HandleAnimation()
     {
-        // Персонаж движется
         if (movement != Vector2.zero)
         {
-            // Вверх (спиной к игроку)
             if (movement.y > 0)
             {
                 lastDirection = "up";
                 PlayAnimation("walk_bottom");
             }
-
-            // Вниз (лицом к игроку)
             else if (movement.y < 0)
             {
                 lastDirection = "down";
                 PlayAnimation("walk");
             }
-
-            // Влево
             else if (movement.x < 0)
             {
                 lastDirection = "left";
                 PlayAnimation("walk_left");
             }
-
-            // Вправо
             else if (movement.x > 0)
             {
                 lastDirection = "right";
                 PlayAnimation("walk_right");
             }
         }
-
-        // Персонаж стоит
         else
         {
             switch (lastDirection)
             {
-                case "up":
-                    PlayAnimation("idle_bottom");
-                    break;
-
-                case "down":
-                    PlayAnimation("idle");
-                    break;
-
-                case "left":
-                    PlayAnimation("idle_left");
-                    break;
-
-                case "right":
-                    PlayAnimation("idle_right");
-                    break;
+                case "up": PlayAnimation("idle_bottom"); break;
+                case "down": PlayAnimation("idle"); break;
+                case "left": PlayAnimation("idle_left"); break;
+                case "right": PlayAnimation("idle_right"); break;
             }
         }
     }
