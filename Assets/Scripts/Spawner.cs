@@ -4,27 +4,37 @@ public class Spawner : MonoBehaviour
 {
     public GameObject[] tetrominoes;
 
-    private bool spawning = false;
-
-    void Start()
-    {
-        Spawn();
-    }
+    // точка спавна
+    public Vector3 spawnPosition = new Vector3(5, 18, 0);
 
     public void Spawn()
     {
-        if (spawning) return;
+        if (TetrisGameManager.instance == null)
+            return;
 
-        spawning = true;
+        if (TetrisGameManager.instance.isGameOver)
+            return;
 
-        int i = Random.Range(0, tetrominoes.Length);
+        if (tetrominoes == null || tetrominoes.Length == 0)
+        {
+            Debug.LogError("NO TETROMINOS!");
+            return;
+        }
+
+        int random = Random.Range(0, tetrominoes.Length);
+
+        GameObject prefab = tetrominoes[random];
+
+        if (prefab == null)
+        {
+            Debug.LogError("NULL PREFAB IN ARRAY!");
+            return;
+        }
 
         Instantiate(
-            tetrominoes[i],
-            new Vector3(5, 18, 0),
+            prefab,
+            spawnPosition,
             Quaternion.identity
         );
-
-        spawning = false;
     }
 }

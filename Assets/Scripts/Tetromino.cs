@@ -3,45 +3,135 @@ using UnityEngine.InputSystem;
 
 public class Tetromino : MonoBehaviour
 {
-    public float speed = 2f;
+    private float fallTimer;
 
-    private bool activePiece = true;
+    public float fallDelay = 1f;
+
+    private static int width = 10;
+    private static int height = 20;
+
+    private static Transform[,] grid = new Transform[10, 20];
 
     void Update()
     {
-        // только активная фигура управляется
-        if (!activePiece) return;
+        if (TetrisGameManager.instance.isGameOver)
+            return;
 
         HandleInput();
 
-        transform.position += Vector3.down * speed * Time.deltaTime;
+        HandleFall();
     }
 
     void HandleInput()
     {
-        var kb = Keyboard.current;
+        var keyboard = Keyboard.current;
 
-        if (kb == null) return;
+        if (keyboard == null)
+            return;
 
-        if (kb.leftArrowKey.wasPressedThisFrame)
-            transform.position += Vector3.left;
+        if (keyboard.leftArrowKey.wasPressedThisFrame)
+        {
+            Move(Vector3.left);
+        }
 
-        if (kb.rightArrowKey.wasPressedThisFrame)
-            transform.position += Vector3.right;
+        if (keyboard.rightArrowKey.wasPressedThisFrame)
+        {
+            Move(Vector3.right);
+        }
 
-        if (kb.downArrowKey.wasPressedThisFrame)
-            transform.position += Vector3.down;
+        if (keyboard.downArrowKey.wasPressedThisFrame)
+        {
+            Move(Vector3.down);
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void HandleFall()
     {
-        // фигура больше НЕ активна
-        activePiece = false;
+        fallTimer += Time.deltaTime;
 
-        // отключаем этот скрипт
+        if (fallTimer >= fallDelay)
+        {
+            Move(Vector3.down);
+
+            fallTimer = 0;
+        }
+    }
+
+    void Move(Vector3 dir)
+    {
+        transform.position += dir;
+
+        if (!ValidPosition())
+        {
+            transform.position -= dir;
+
+            if (dir == Vector3.down)
+            {
+                Lock();
+            }
+        }
+    }
+
+    bool ValidPosition()
+    {
+        foreach (Transform child in transform)
+        {
+            Vector2 pos = Round(child.position);
+
+            if (!InsideGrid(pos))
+            {
+                return false;
+            }
+
+            if (pos.y < height)
+            {
+                if (grid[(int)pos.x, (int)pos.y] != null &&
+                    grid[(int)pos.x, (int)pos.y].parent != transform)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    void Lock()
+    {
+        foreach (Transform child in transform)
+        {
+            Vector2 pos = Round(child.position);
+
+            int x = (int)pos.x;
+            int y = (int)pos.y;
+
+            // защита от выхода за границы
+            if (x < 0 || x >= width || y < 0 || y >= height)
+            {
+                TetrisGameManager.instance.GameOver();
+                return;
+            }
+
+            grid[x, y] = child;
+        }
+
         enabled = false;
 
-        // создаём следующую фигуру
-        FindFirstObjectByType<Spawner>().Spawn();
+        TetrisGameManager.instance.PieceLocked();
+    }
+
+    bool InsideGrid(Vector2 pos)
+    {
+        return (int)pos.x >= 0 &&
+               (int)pos.x < width &&
+               (int)pos.y >= 0;
+    }
+
+    Vector2 Round(Vector3 pos)
+    {
+        return new Vector2(
+            Mathf.Round(pos.x),
+            Mathf.Round(pos.y)
+        );
     }
 }
