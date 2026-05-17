@@ -20,10 +20,10 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        ApplyModeSettings();
+        // ApplyModeSettings();
     }
 
-    void ApplyModeSettings()
+    public void ApplyMode()
     {
         if (GameState.isPacmanMode)
         {

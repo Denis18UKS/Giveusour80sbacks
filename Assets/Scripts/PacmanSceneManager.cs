@@ -7,40 +7,25 @@ public class PacmanSceneManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        // ждём загрузку сцены
         yield return null;
+
+        GameState.isPacmanMode = true;
 
         GameObject player =
             GameObject.FindGameObjectWithTag("Player");
 
         if (player != null)
         {
-            // размер
-            player.transform.localScale =
-                new Vector3(3f, 3f, 3f);
+            player.transform.position = spawnPoint.position;
 
-            // позиция
-            player.transform.position =
-                spawnPoint.position;
-
-            // скорость
             PlayerController controller =
                 player.GetComponent<PlayerController>();
 
             if (controller != null)
             {
-                controller.speed = 3f;
-
+                controller.ApplyMode();
                 Debug.Log("PACMAN SPEED = " + controller.speed);
             }
-            else
-            {
-                Debug.LogError("PlayerController NOT FOUND");
-            }
-        }
-        else
-        {
-            Debug.LogError("PLAYER NOT FOUND");
         }
     }
 }

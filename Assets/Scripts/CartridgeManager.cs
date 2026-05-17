@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class CartridgeManager : MonoBehaviour
 {
-    [Header("Objects In Scene")]
     public GameObject pacmanObject;
     public GameObject tetrisObject;
     public GameObject marioObject;
 
-    [Header("Spawn Points")]
     public Transform[] spawnPoints;
 
     private int currentIndex = 0;
@@ -21,13 +19,23 @@ public class CartridgeManager : MonoBehaviour
 
     void Start()
     {
+        HideAll();
         SpawnNext();
+    }
+
+    void HideAll()
+    {
+        pacmanObject.SetActive(false);
+        tetrisObject.SetActive(false);
+        marioObject.SetActive(false);
     }
 
     public void OnCartridgeCollected(Cartridge.CartridgeType type)
     {
         if (type == order[currentIndex])
         {
+            GetObject(type).SetActive(false);
+
             currentIndex++;
             SpawnNext();
         }
@@ -37,9 +45,11 @@ public class CartridgeManager : MonoBehaviour
     {
         if (currentIndex >= order.Length)
         {
-            Debug.Log("Все картриджи собраны!");
+            Debug.Log("ВСЕ КАРТРИДЖИ СОБРАНЫ");
             return;
         }
+
+        HideAll();
 
         GameObject obj = GetObject(order[currentIndex]);
 
