@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class CartridgeManager : MonoBehaviour
 {
-    [Header("Prefabs")]
-    public GameObject pacmanPrefab;
-    public GameObject tetrisPrefab;
-    public GameObject marioPrefab;
+    [Header("Objects In Scene")]
+    public GameObject pacmanObject;
+    public GameObject tetrisObject;
+    public GameObject marioObject;
 
     [Header("Spawn Points")]
     public Transform[] spawnPoints;
@@ -41,27 +41,30 @@ public class CartridgeManager : MonoBehaviour
             return;
         }
 
-        GameObject prefabToSpawn = GetPrefab(order[currentIndex]);
-        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        GameObject obj = GetObject(order[currentIndex]);
 
-        GameObject obj = Instantiate(prefabToSpawn, spawnPoint.position, Quaternion.identity);
+        Transform spawnPoint =
+            spawnPoints[Random.Range(0, spawnPoints.Length)];
+
+        obj.transform.position = spawnPoint.position;
+        obj.SetActive(true);
 
         Cartridge c = obj.GetComponent<Cartridge>();
         c.Init(this);
     }
 
-    GameObject GetPrefab(Cartridge.CartridgeType type)
+    GameObject GetObject(Cartridge.CartridgeType type)
     {
         switch (type)
         {
             case Cartridge.CartridgeType.Pacman:
-                return pacmanPrefab;
+                return pacmanObject;
 
             case Cartridge.CartridgeType.Tetris:
-                return tetrisPrefab;
+                return tetrisObject;
 
             case Cartridge.CartridgeType.Mario:
-                return marioPrefab;
+                return marioObject;
         }
 
         return null;
