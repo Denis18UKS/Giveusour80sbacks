@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        // ApplyModeSettings();
+        // ApplyModeSettings
     }
 
     public void ApplyMode()

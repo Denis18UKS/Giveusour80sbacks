@@ -556,6 +556,7 @@ GameObject:
   - component: {fileID: 56819899}
   - component: {fileID: 56819901}
   - component: {fileID: 56819902}
+  - component: {fileID: 56819903}
   m_Layer: 0
   m_Name: red
   m_TagString: Ghost
@@ -737,6 +738,42 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!58 &56819903
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56819896}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -0.000000029802322}
+  m_Radius: 0.08
 --- !u!1 &59187666
 GameObject:
   m_ObjectHideFlags: 0
@@ -6979,6 +7016,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 76771885904039684, guid: c11ff18ce504f824892e4098c2295200, type: 3}
       insertIndex: -1
       addedObject: {fileID: 528001992}
+    - targetCorrespondingSourceObject: {fileID: 76771885904039684, guid: c11ff18ce504f824892e4098c2295200, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 528001998}
   m_SourcePrefab: {fileID: 100100000, guid: c11ff18ce504f824892e4098c2295200, type: 3}
 --- !u!4 &528001990 stripped
 Transform:
@@ -7003,6 +7043,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScaler
   pacmanScale: {x: 3, y: 3, z: 3}
+--- !u!114 &528001998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528001991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efaa35a52dc098345af102dc61f5af4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathReset
 --- !u!1 &529347469
 GameObject:
   m_ObjectHideFlags: 0
@@ -9763,6 +9815,7 @@ GameObject:
   - component: {fileID: 747376248}
   - component: {fileID: 747376250}
   - component: {fileID: 747376251}
+  - component: {fileID: 747376252}
   m_Layer: 0
   m_Name: orange
   m_TagString: Ghost
@@ -9921,7 +9974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GhostAI
   player: {fileID: 528001990}
   speed: 2
-  prefix: rg
+  prefix: og
 --- !u!95 &747376251
 Animator:
   serializedVersion: 7
@@ -9944,6 +9997,42 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!58 &747376252
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747376245}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.08
 --- !u!1 &752895949
 GameObject:
   m_ObjectHideFlags: 0
@@ -14972,6 +15061,7 @@ GameObject:
   - component: {fileID: 1189414607}
   - component: {fileID: 1189414609}
   - component: {fileID: 1189414610}
+  - component: {fileID: 1189414611}
   m_Layer: 0
   m_Name: pink
   m_TagString: Ghost
@@ -15130,7 +15220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GhostAI
   player: {fileID: 528001990}
   speed: 2
-  prefix: rg
+  prefix: pg
 --- !u!95 &1189414610
 Animator:
   serializedVersion: 7
@@ -15153,6 +15243,42 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!58 &1189414611
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189414604}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.08
 --- !u!1 &1200827944
 GameObject:
   m_ObjectHideFlags: 0
@@ -19768,6 +19894,7 @@ GameObject:
   - component: {fileID: 1574930248}
   - component: {fileID: 1574930250}
   - component: {fileID: 1574930251}
+  - component: {fileID: 1574930252}
   m_Layer: 0
   m_Name: lightblue
   m_TagString: Ghost
@@ -19926,7 +20053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GhostAI
   player: {fileID: 528001990}
   speed: 2
-  prefix: rg
+  prefix: lbg
 --- !u!95 &1574930251
 Animator:
   serializedVersion: 7
@@ -19949,6 +20076,42 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!58 &1574930252
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574930245}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 9.313226e-10, y: -0.000000007450581}
+  m_Radius: 0.08
 --- !u!1 &1585247169
 GameObject:
   m_ObjectHideFlags: 0

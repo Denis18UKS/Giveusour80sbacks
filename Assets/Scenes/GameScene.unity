@@ -794,6 +794,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.086032, y: 1.9974723}
   m_EdgeRadius: 0
+--- !u!1 &734498816 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 76771885904039684, guid: c11ff18ce504f824892e4098c2295200, type: 3}
+  m_PrefabInstance: {fileID: 6637494525007394924}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &734498823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734498816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efaa35a52dc098345af102dc61f5af4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathReset
 --- !u!1001 &761894359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1959,7 +1976,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 76771885904039684, guid: c11ff18ce504f824892e4098c2295200, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 734498823}
   m_SourcePrefab: {fileID: 100100000, guid: c11ff18ce504f824892e4098c2295200, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
