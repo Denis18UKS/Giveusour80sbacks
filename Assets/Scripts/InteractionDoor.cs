@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class DoorTrigger : MonoBehaviour
 {
@@ -7,9 +8,13 @@ public class DoorTrigger : MonoBehaviour
 
     void Update()
     {
-        if (playerInRange && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        if (!playerInRange) return;
+
+        if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
-            Debug.Log("Игрок вошёл в дверь!");
+            Debug.Log("Переход в GameStoreScene");
+
+            SceneManager.LoadScene("GameStoreScene");
         }
     }
 
