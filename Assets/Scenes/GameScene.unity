@@ -133,11 +133,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6027110485159965255, guid: 548a07795f5934d4d9be1c9add4e0a7e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.09354
+      value: -3.72
       objectReference: {fileID: 0}
     - target: {fileID: 6027110485159965255, guid: 548a07795f5934d4d9be1c9add4e0a7e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.50242
+      value: -1.2
       objectReference: {fileID: 0}
     - target: {fileID: 6027110485159965255, guid: 548a07795f5934d4d9be1c9add4e0a7e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -176,6 +176,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 548a07795f5934d4d9be1c9add4e0a7e, type: 3}
+--- !u!1 &78573381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7112668445608713593, guid: 64aec9dd7582bfa4db8d8bf1c17a9db1, type: 3}
+  m_PrefabInstance: {fileID: 1988908033}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &213699955
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,11 +788,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 178555356865949035, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.09354
+      value: 3.67
       objectReference: {fileID: 0}
     - target: {fileID: 178555356865949035, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.50242
+      value: -2.79
       objectReference: {fileID: 0}
     - target: {fileID: 178555356865949035, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
       propertyPath: m_LocalPosition.z
@@ -921,6 +926,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc4739da48a7914e9a9aafd9fbeefa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorTrigger
+--- !u!1 &1037011271 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3460417722762880910, guid: 548a07795f5934d4d9be1c9add4e0a7e, type: 3}
+  m_PrefabInstance: {fileID: 57270195}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1095253767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1553,9 +1563,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f53d2e37bd415408d848c6e3141774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CartridgeManager
-  pacmanObject: {fileID: 0}
-  tetrisObject: {fileID: 0}
-  marioObject: {fileID: 0}
+  pacmanObject: {fileID: 1037011271}
+  tetrisObject: {fileID: 78573381}
+  marioObject: {fileID: 2056862813}
   spawnPoints:
   - {fileID: 297226363}
   - {fileID: 1095253768}
@@ -1711,6 +1721,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64aec9dd7582bfa4db8d8bf1c17a9db1, type: 3}
+--- !u!1 &2056862813 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4943507128517205208, guid: 7ea3245cd84e6604c9af49decd66e214, type: 3}
+  m_PrefabInstance: {fileID: 761894359}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2091636181
 GameObject:
   m_ObjectHideFlags: 0
