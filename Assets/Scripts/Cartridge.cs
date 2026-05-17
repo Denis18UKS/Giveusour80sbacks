@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Cartridge : MonoBehaviour
 {
-    public CartridgeType type;
-
     public enum CartridgeType
     {
         Pacman,
@@ -11,8 +9,9 @@ public class Cartridge : MonoBehaviour
         Mario
     }
 
+    public CartridgeType type;
+
     private CartridgeManager manager;
-    private bool picked = false;
 
     public void Init(CartridgeManager m)
     {
@@ -21,13 +20,11 @@ public class Cartridge : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (picked) return;
-
         if (other.CompareTag("Player"))
         {
-            picked = true;
             manager.OnCartridgeCollected(type);
-            Destroy(gameObject);
+
+            gameObject.SetActive(false);
         }
     }
 }
