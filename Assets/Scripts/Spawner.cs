@@ -3,27 +3,28 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public GameObject[] tetrominoes;
-    public Vector2 spawnPosition = new Vector2(5, 18);
 
-    private void Start()
+    private bool spawning = false;
+
+    void Start()
     {
         Spawn();
     }
 
     public void Spawn()
     {
-        if (tetrominoes == null || tetrominoes.Length == 0)
-        {
-            Debug.LogError("Spawner: NO PREFABS ASSIGNED!");
-            return;
-        }
+        if (spawning) return;
 
-        int index = Random.Range(0, tetrominoes.Length);
+        spawning = true;
+
+        int i = Random.Range(0, tetrominoes.Length);
 
         Instantiate(
-            tetrominoes[index],
-            new Vector3(spawnPosition.x, spawnPosition.y, 0),
+            tetrominoes[i],
+            new Vector3(5, 18, 0),
             Quaternion.identity
         );
+
+        spawning = false;
     }
 }
