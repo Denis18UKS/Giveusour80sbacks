@@ -8,32 +8,10 @@ public class TetrisSceneManager : MonoBehaviour
 
         if (player == null)
         {
-            Debug.LogError("Player not found in TetrisScene");
+            Debug.Log("TetrisScene: Player is not needed here (ignored).");
             return;
         }
 
-        // ❌ выключаем управление
-        PlayerController controller = player.GetComponent<PlayerController>();
-        if (controller != null)
-        {
-            controller.enabled = false;
-        }
-
-        // ❌ выключаем физику (чтобы не дёргался)
-        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector2.zero;
-            rb.bodyType = RigidbodyType2D.Static;
-        }
-
-        // ❌ фиксируем анимацию (если есть Animator)
-        Animator anim = player.GetComponent<Animator>();
-        if (anim != null)
-        {
-            anim.enabled = false;
-        }
-
-        Debug.Log("Player locked in TetrisScene (idle state)");
+        Debug.Log("Player exists (Tetris mode)");
     }
 }
