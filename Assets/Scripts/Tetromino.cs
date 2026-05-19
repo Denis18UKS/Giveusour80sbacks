@@ -7,11 +7,6 @@ public class Tetromino : MonoBehaviour
 
     public float fallDelay = 1f;
 
-    private static int width = 10;
-    private static int height = 20;
-
-    private static Transform[,] grid = new Transform[10, 20];
-
     void Update()
     {
         if (TetrisGameManager.instance.isGameOver)
@@ -43,6 +38,12 @@ public class Tetromino : MonoBehaviour
         {
             Move(Vector3.down);
         }
+
+        // ROTATE
+        if (keyboard.upArrowKey.wasPressedThisFrame)
+        {
+            Rotate();
+        }
     }
 
     void HandleFall()
@@ -72,21 +73,31 @@ public class Tetromino : MonoBehaviour
         }
     }
 
+    void Rotate()
+    {
+        transform.Rotate(0, 0, -90);
+
+        if (!ValidPosition())
+        {
+            transform.Rotate(0, 0, 90);
+        }
+    }
+
     bool ValidPosition()
     {
         foreach (Transform child in transform)
         {
-            Vector2 pos = Round(child.position);
+            Vector2 pos = GridManager.Round(child.position);
 
-            if (!InsideGrid(pos))
+            if (!GridManager.Inside(pos))
             {
                 return false;
             }
 
-            if (pos.y < height)
+            if (pos.y < GridManager.height)
             {
-                if (grid[(int)pos.x, (int)pos.y] != null &&
-                    grid[(int)pos.x, (int)pos.y].parent != transform)
+                if (GridManager.grid[(int)pos.x, (int)pos.y] != null &&
+                    GridManager.grid[(int)pos.x, (int)pos.y].parent != transform)
                 {
                     return false;
                 }
@@ -100,38 +111,28 @@ public class Tetromino : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            Vector2 pos = Round(child.position);
+            Vector2 pos = GridManager.Round(child.position);
 
             int x = (int)pos.x;
             int y = (int)pos.y;
 
             // защита от выхода за границы
-            if (x < 0 || x >= width || y < 0 || y >= height)
+            if (x < 0 || x >= GridManager.width ||
+                y < 0 || y >= GridManager.height)
             {
                 TetrisGameManager.instance.GameOver();
                 return;
             }
 
-            grid[x, y] = child;
+            GridManager.grid[x, y] = child;
         }
+
+        GridManager.DeleteLines();
+
+        GridManager.CheckGameOver();
 
         enabled = false;
 
         TetrisGameManager.instance.PieceLocked();
-    }
-
-    bool InsideGrid(Vector2 pos)
-    {
-        return (int)pos.x >= 0 &&
-               (int)pos.x < width &&
-               (int)pos.y >= 0;
-    }
-
-    Vector2 Round(Vector3 pos)
-    {
-        return new Vector2(
-            Mathf.Round(pos.x),
-            Mathf.Round(pos.y)
-        );
     }
 }

@@ -9,7 +9,10 @@ public class GridManager : MonoBehaviour
 
     public static Vector2 Round(Vector2 pos)
     {
-        return new Vector2(Mathf.Round(pos.x), Mathf.Round(pos.y));
+        return new Vector2(
+            Mathf.Round(pos.x),
+            Mathf.Round(pos.y)
+        );
     }
 
     public static bool Inside(Vector2 pos)
@@ -26,7 +29,8 @@ public class GridManager : MonoBehaviour
             if (IsFull(y))
             {
                 DeleteRow(y);
-                MoveDown(y + 1);
+                MoveAllRowsDown(y + 1);
+
                 y--;
             }
         }
@@ -35,8 +39,10 @@ public class GridManager : MonoBehaviour
     static bool IsFull(int y)
     {
         for (int x = 0; x < width; x++)
+        {
             if (grid[x, y] == null)
                 return false;
+        }
 
         return true;
     }
@@ -45,14 +51,13 @@ public class GridManager : MonoBehaviour
     {
         for (int x = 0; x < width; x++)
         {
-            if (grid[x, y] != null)
-                Object.Destroy(grid[x, y].gameObject);
+            Destroy(grid[x, y].gameObject);
 
             grid[x, y] = null;
         }
     }
 
-    static void MoveDown(int startY)
+    static void MoveAllRowsDown(int startY)
     {
         for (int y = startY; y < height; y++)
         {
@@ -79,6 +84,7 @@ public class GridManager : MonoBehaviour
                 return true;
             }
         }
+
         return false;
     }
 }

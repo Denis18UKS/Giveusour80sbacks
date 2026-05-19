@@ -9,12 +9,12 @@ public class TetrisGameManager : MonoBehaviour
 
     [Header("Game")]
     public bool isGameOver = false;
+
     public int score = 0;
     public int winScore = 10;
 
     [Header("Spawner")]
     public Spawner spawner;
-    private bool pieceActive = false;
 
     [Header("Fade")]
     public Image fadeImage;
@@ -43,19 +43,14 @@ public class TetrisGameManager : MonoBehaviour
 
     public void SpawnNextPiece()
     {
-        if (isGameOver) return;
-
-        if (pieceActive) return;
-
-        pieceActive = true;
+        if (isGameOver)
+            return;
 
         spawner.Spawn();
     }
 
     public void PieceLocked()
     {
-        pieceActive = false;
-
         AddScore(1);
 
         SpawnNextPiece();
@@ -94,6 +89,7 @@ public class TetrisGameManager : MonoBehaviour
 
                 Color c = fadeImage.color;
                 c.a = a;
+
                 fadeImage.color = c;
 
                 yield return null;
@@ -107,7 +103,8 @@ public class TetrisGameManager : MonoBehaviour
 
     public void GameOver()
     {
-        if (isGameOver) return;
+        if (isGameOver)
+            return;
 
         isGameOver = true;
 
