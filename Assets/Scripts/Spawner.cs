@@ -7,7 +7,7 @@ public class Spawner : MonoBehaviour
     // used because they are not made from four independent grid cells.
     [HideInInspector] public GameObject[] tetrominoes;
 
-    public Vector2Int spawnCell = new Vector2Int(4, 18);
+    private static readonly Vector2Int spawnCell = new Vector2Int(4, 18);
 
     private readonly List<int> bag = new List<int>();
 
