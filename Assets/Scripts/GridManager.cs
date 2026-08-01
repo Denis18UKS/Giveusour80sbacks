@@ -2,38 +2,74 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    public static int width = 10;
-    public static int height = 20;
+    public const int width = 10;
+    public const int height = 20;
+    public const float cellSize = 0.45f;
 
-    public static Transform[,] grid = new Transform[10, 20];
+    private static readonly Vector3 boardOrigin = new Vector3(-2.025f, -4.275f, 0f);
 
-    public static Vector2 Round(Vector2 pos)
+    public static Transform[,] grid = new Transform[width, height];
+
+    void Awake()
     {
-        return new Vector2(
-            Mathf.Round(pos.x),
-            Mathf.Round(pos.y)
+        ResetGrid();
+    }
+
+    public static void ResetGrid()
+    {
+        grid = new Transform[width, height];
+    }
+
+    public static Vector2Int WorldToCell(Vector3 worldPosition)
+    {
+        Vector3 localPosition = worldPosition - boardOrigin;
+
+        return new Vector2Int(
+            Mathf.RoundToInt(localPosition.x / cellSize),
+            Mathf.RoundToInt(localPosition.y / cellSize)
         );
     }
 
-    public static bool Inside(Vector2 pos)
+    public static Vector3 CellToWorld(Vector2Int cell)
     {
-        return (int)pos.x >= 0 &&
-               (int)pos.x < width &&
-               (int)pos.y >= 0;
+        return boardOrigin + new Vector3(cell.x * cellSize, cell.y * cellSize, 0f);
     }
 
-    public static void DeleteLines()
+    public static bool IsInsideHorizontalBounds(Vector2Int cell)
     {
+        return cell.x >= 0 && cell.x < width && cell.y >= 0;
+    }
+
+    public static bool IsOccupied(Vector2Int cell)
+    {
+        if (cell.y >= height)
+            return false;
+
+        return grid[cell.x, cell.y] != null;
+    }
+
+    public static void SetCell(Vector2Int cell, Transform block)
+    {
+        grid[cell.x, cell.y] = block;
+        block.position = CellToWorld(cell);
+    }
+
+    public static int DeleteCompleteLines()
+    {
+        int deletedLines = 0;
+
         for (int y = 0; y < height; y++)
         {
-            if (IsFull(y))
-            {
-                DeleteRow(y);
-                MoveAllRowsDown(y + 1);
+            if (!IsFull(y))
+                continue;
 
-                y--;
-            }
+            DeleteRow(y);
+            MoveRowsDown(y + 1);
+            deletedLines++;
+            y--;
         }
+
+        return deletedLines;
     }
 
     static bool IsFull(int y)
@@ -51,40 +87,28 @@ public class GridManager : MonoBehaviour
     {
         for (int x = 0; x < width; x++)
         {
-            Destroy(grid[x, y].gameObject);
+            if (grid[x, y] != null)
+                Object.Destroy(grid[x, y].gameObject);
 
             grid[x, y] = null;
         }
     }
 
-    static void MoveAllRowsDown(int startY)
+    static void MoveRowsDown(int startY)
     {
         for (int y = startY; y < height; y++)
         {
             for (int x = 0; x < width; x++)
             {
-                if (grid[x, y] != null)
-                {
-                    grid[x, y - 1] = grid[x, y];
-                    grid[x, y] = null;
+                Transform block = grid[x, y];
 
-                    grid[x, y - 1].position += Vector3.down;
-                }
+                if (block == null)
+                    continue;
+
+                grid[x, y - 1] = block;
+                grid[x, y] = null;
+                block.position = CellToWorld(new Vector2Int(x, y - 1));
             }
         }
-    }
-
-    public static bool CheckGameOver()
-    {
-        for (int x = 0; x < width; x++)
-        {
-            if (grid[x, height - 1] != null)
-            {
-                TetrisGameManager.instance.GameOver();
-                return true;
-            }
-        }
-
-        return false;
     }
 }
