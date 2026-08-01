@@ -1,17 +1,18 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Collections;
 
 public class TetrisGameManager : MonoBehaviour
 {
     public static TetrisGameManager instance;
 
     [Header("Game")]
-    public bool isGameOver = false;
-
-    public int score = 0;
+    public bool isGameOver;
+    public int score;
     public int winScore = 10;
+    public int linesCleared;
 
     [Header("Spawner")]
     public Spawner spawner;
@@ -24,21 +25,39 @@ public class TetrisGameManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip winSound;
 
+    private bool winStarted;
+
     void Awake()
     {
         instance = this;
+        isGameOver = false;
+        score = 0;
+        linesCleared = 0;
+        GridManager.ResetGrid();
     }
 
     void Start()
     {
-        SpawnNextPiece();
-
         if (fadeImage != null)
         {
-            Color c = fadeImage.color;
-            c.a = 0;
-            fadeImage.color = c;
+            Color color = fadeImage.color;
+            color.a = 0f;
+            fadeImage.color = color;
         }
+
+        SpawnNextPiece();
+    }
+
+    void Update()
+    {
+        if (!isGameOver || Keyboard.current == null)
+            return;
+
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            SceneManager.LoadScene("GameScene");
     }
 
     public void SpawnNextPiece()
@@ -46,58 +65,62 @@ public class TetrisGameManager : MonoBehaviour
         if (isGameOver)
             return;
 
+        if (spawner == null)
+        {
+            Debug.LogError("Tetris: spawner is not assigned.");
+            GameOver();
+            return;
+        }
+
         spawner.Spawn();
     }
 
-    public void PieceLocked()
+    public void PieceLocked(int deletedLines)
     {
-        AddScore(1);
+        if (isGameOver)
+            return;
+
+        linesCleared += deletedLines;
+        score++;
+
+        Debug.Log("SCORE: " + score + ", LINES: " + linesCleared);
+
+        if (score >= winScore)
+        {
+            if (!winStarted)
+                StartCoroutine(WinCoroutine());
+
+            return;
+        }
 
         SpawnNextPiece();
     }
 
-    public void AddScore(int amount)
-    {
-        score += amount;
-
-        Debug.Log("SCORE: " + score);
-
-        if (score >= winScore)
-        {
-            StartCoroutine(WinCoroutine());
-        }
-    }
-
     IEnumerator WinCoroutine()
     {
+        winStarted = true;
         isGameOver = true;
 
         Debug.Log("YOU WIN");
 
         if (audioSource != null && winSound != null)
-        {
             audioSource.PlayOneShot(winSound);
-        }
 
         if (fadeImage != null)
         {
-            float a = 0;
+            float alpha = fadeImage.color.a;
 
-            while (a < 1)
+            while (alpha < 1f)
             {
-                a += Time.deltaTime * fadeSpeed;
-
-                Color c = fadeImage.color;
-                c.a = a;
-
-                fadeImage.color = c;
-
+                alpha = Mathf.Min(1f, alpha + Time.deltaTime * fadeSpeed);
+                Color color = fadeImage.color;
+                color.a = alpha;
+                fadeImage.color = color;
                 yield return null;
             }
         }
 
         yield return new WaitForSeconds(1f);
-
         SceneManager.LoadScene("GameScene");
     }
 
@@ -107,7 +130,6 @@ public class TetrisGameManager : MonoBehaviour
             return;
 
         isGameOver = true;
-
-        Debug.Log("GAME OVER");
+        Debug.Log("GAME OVER. Press R to restart or Esc to return.");
     }
 }
